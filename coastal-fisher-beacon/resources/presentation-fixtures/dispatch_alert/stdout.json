@@ -1,0 +1,18 @@
+{
+  "status": "alert_ready",
+  "success": true,
+  "dispatch_attempted": false,
+  "notification_status": "pending_external_delivery",
+  "fisherman": "Test Fisher",
+  "vessel": "TEST-BOAT-01",
+  "distress_status": "engine_failure",
+  "position": {
+    "latitude": 10.123456,
+    "longitude": 79.123456,
+    "gps_accuracy_m": "8"
+  },
+  "battery_level": "42",
+  "people_onboard": "4",
+  "emergency_message": "Test emergency alert",
+  "maps_url": "https://maps.google.com/?q=10.123456,79.123456"
+}

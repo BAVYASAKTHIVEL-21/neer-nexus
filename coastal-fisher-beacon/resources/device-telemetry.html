@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Coastal Fisher Beacon — Device Telemetry</title>
+</head>
+<body>
+  <h2>Coastal Fisher Beacon</h2>
+  <p id="status">Requesting device location...</p>
+
+  <script>
+    const status = document.getElementById("status");
+
+    async function collectTelemetry() {
+      if (!navigator.geolocation) {
+        status.textContent = "GPS unavailable on this device.";
+        return;
+      }
+
+      navigator.geolocation.watchPosition(
+        async (position) => {
+          const telemetry = {
+            device_type: /Mobi|Android/i.test(navigator.userAgent)
+              ? "mobile"
+              : "laptop",
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy_m: position.coords.accuracy,
+            timestamp: new Date(position.timestamp).toISOString()
+          };
+
+          try {
+            if ("getBattery" in navigator) {
+              const battery = await navigator.getBattery();
+              telemetry.battery_level = Math.round(battery.level * 100);
+            }
+          } catch {
+            telemetry.battery_level = null;
+          }
+
+          console.log("COASTAL_FISHER_TELEMETRY", telemetry);
+
+          status.textContent =
+            `GPS: ${telemetry.latitude}, ${telemetry.longitude} | ` +
+            `Accuracy: ${Math.round(telemetry.accuracy_m)}m | ` +
+            `Battery: ${telemetry.battery_level ?? "unknown"}%`;
+        },
+        (error) => {
+          status.textContent = "Location unavailable: " + error.message;
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 5000,
+          timeout: 10000
+        }
+      );
+    }
+
+    collectTelemetry();
+  </script>
+</body>
+</html>

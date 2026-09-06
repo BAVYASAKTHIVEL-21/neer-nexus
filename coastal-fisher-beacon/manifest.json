@@ -1,0 +1,165 @@
+{
+  "name": "coastal-fisher-beacon",
+  "description": "Coastal Fisher Beacon is a Rote Play designed to help protect fishermen and coastal vessel operators during maritime emergencies, where delayed or inaccurate distress communication can cost lives. It captures and validates critical information such as vessel identity, distress status, location, GPS accuracy, battery, people onboard, and emergency details, then routes a verified alert to an authorized rescue channel. As part of a larger Rote ecosystem, it can integrate with Kadalkaval to connect vessel distress with coastal hazards such as cyclones, tsunamis, storm surges, and flooding, enabling faster, location-aware warnings and broader coastal situational awareness.\n",
+  "metadata": {
+    "version": "0.80.0",
+    "status": "released",
+    "execution_model": "steps_with_presentation",
+    "package": {
+      "files": [
+        "deps.toml",
+        "lib/presentation.ts",
+        "main.ts",
+        "manifest.json",
+        "resources/dispatch.ts",
+        "resources/presentation-fixtures/dispatch_alert.json",
+        "resources/presentation-fixtures/dispatch_alert/fixture.yaml",
+        "resources/presentation-fixtures/dispatch_alert/stderr.txt",
+        "resources/presentation-fixtures/dispatch_alert/stdout.json"
+      ],
+      "tools": [
+        {
+          "id": "deno",
+          "command": "deno",
+          "required": true,
+          "install_hints": [
+            "brew install deno"
+          ]
+        }
+      ],
+      "digest": "installed-package-sha256-v1:2646254bc8a08b61d056e3e3c34e2b3071ff5dd69ea6f1a5b9fd3b2882f23265"
+    },
+    "rote_version": "0.80.0",
+    "kind": "atomic",
+    "flow_type": "sequential",
+    "format": "typescript",
+    "requires_sessions": false,
+    "contract": {
+      "atomic": true,
+      "composable": true,
+      "input": {
+        "type": "env"
+      },
+      "output": {
+        "format": "json",
+        "destination": "stdout"
+      }
+    },
+    "discoverability": {
+      "tags": [
+        "maritime-safety",
+        "emergency-response",
+        "fishermen",
+        "distress-beacon",
+        "notification"
+      ]
+    },
+    "runtime_dependencies": {
+      "host_tools": [
+        {
+          "id": "deno",
+          "command": "deno",
+          "required": true,
+          "install_hints": [
+            "brew install deno"
+          ]
+        }
+      ]
+    }
+  },
+  "source": "https://github.com/BAVYASAKTHIVEL-21/coastal-fisher-beacon",
+  "tags": [
+    "maritime-safety",
+    "emergency-response",
+    "fishermen",
+    "distress-beacon",
+    "notification"
+  ],
+  "discoverability": {
+    "summary": "Emergency maritime distress beacon for fishermen and vessels.",
+    "audience": [
+      "fishermen",
+      "vessel-operators",
+      "rescue-coordinators"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "fisher_name",
+      "param_type": "string",
+      "required": true,
+      "description": "Name of the fisherman or vessel operator"
+    },
+    {
+      "name": "vessel_name",
+      "param_type": "string",
+      "required": true,
+      "description": "Name or identifier of the vessel"
+    },
+    {
+      "name": "distress_status",
+      "param_type": "string",
+      "required": true,
+      "description": "Current distress status"
+    },
+    {
+      "name": "latitude",
+      "param_type": "string",
+      "required": true,
+      "description": "Current GPS latitude"
+    },
+    {
+      "name": "longitude",
+      "param_type": "string",
+      "required": true,
+      "description": "Current GPS longitude"
+    },
+    {
+      "name": "gps_accuracy",
+      "param_type": "string",
+      "required": false,
+      "description": "GPS accuracy in meters"
+    },
+    {
+      "name": "battery_level",
+      "param_type": "string",
+      "required": false,
+      "description": "Device battery percentage"
+    },
+    {
+      "name": "people_onboard",
+      "param_type": "string",
+      "required": false,
+      "description": "Number of people currently onboard"
+    },
+    {
+      "name": "emergency_message",
+      "param_type": "string",
+      "required": true,
+      "description": "Emergency details or message"
+    }
+  ],
+  "steps": {
+    "dispatch_alert": {
+      "type": "process.exec",
+      "argv": [
+        "deno",
+        "run",
+        "@resource{dispatch.ts}",
+        "$fisher_name",
+        "$vessel_name",
+        "$distress_status",
+        "$latitude",
+        "$longitude",
+        "$gps_accuracy",
+        "$battery_level",
+        "$people_onboard",
+        "$emergency_message"
+      ],
+      "timeout_ms": 30000
+    }
+  },
+  "presentation_fixtures": {
+    "dispatch_alert": "resources/presentation-fixtures/dispatch_alert/fixture.yaml"
+  }
+}

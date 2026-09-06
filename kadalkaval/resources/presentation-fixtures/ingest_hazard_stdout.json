@@ -1,0 +1,7 @@
+{
+  "status": "no_relevant_coastal_alert",
+  "success": false,
+  "dispatch_attempted": false,
+  "source": "IMD_CAP_RSS",
+  "checked_alerts": 10
+}

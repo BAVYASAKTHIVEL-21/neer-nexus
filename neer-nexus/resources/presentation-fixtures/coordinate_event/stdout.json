@@ -1,0 +1,1 @@
+{"success":true,"event":{"type":"coastal_hazard","area":"Chennai coast","severity":"Severe","message":"Test coastal hazard coordination event"},"coordination":{"action":"evaluate_fisher_relevance","source":"kadalkaval","target":"coastal-fisher-beacon","reason":"A coastal hazard may affect vessels operating in the associated area."}}

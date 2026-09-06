@@ -1,0 +1,8 @@
+schema_version: 1
+kind: process.exec
+status:
+  exit: { kind: code, code: 0 }
+  duration_ms: 120
+  timeout_ms: 30000
+stdout: resources/presentation-fixtures/hazard_ingest/stdout.json
+stderr: resources/presentation-fixtures/hazard_ingest/stderr.txt
